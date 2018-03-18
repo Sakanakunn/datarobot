@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div id = "data" style = "display:none">
+    {{name}}
+</div>
+</body>
+<script>
+    var str = document.getElementById("data").textContent.replace('<table border="1" class="dataframe">','<table border="1" class="table table-striped">')
+    var div = document.createElement('div');
+    div.innerHTML = str;
+    document.body.appendChild(div);
+</script>
+</html>

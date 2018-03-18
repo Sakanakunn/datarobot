@@ -93,12 +93,16 @@ def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names):
     print(result_dict)
 
 if __name__ == '__main__':
+    ## TODO:関数をフォームの入力データで呼び出せる構成にする
     ## テストデータのパス
+    ## TODO:テストデータ(DataFrameをpostから受け取る)
     train_data_path = './data/titanic/train.csv'
     ##Class Mapping
     mapping_fl = False
+    ## TODO:(スコアリング列のカラム数を受け取る)
     ## スコアリング列のカラム番号
     scoring_columns = 1
+    ## TODO:(除外するカラム名を受け取る)
     ## 除外するカラム名
     exclude_columns_names = ['Name','Ticket','Cabin']
     ## スコアリングデータのパス

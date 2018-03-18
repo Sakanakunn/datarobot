@@ -17,9 +17,6 @@ def greet(name='Stranger'):
     for i in array_str:
         array_pre.append(i.split(','))
 
-    ## todo Python ArrayをPandas.DataFrameに変換する
-
-    ## todo Pythonの配列を組み替える
     array_fin_dic = {}
     for idx1,i in enumerate(array_pre[0]):
         values = []
@@ -28,9 +25,8 @@ def greet(name='Stranger'):
                 values.append(t[idx1])
         array_fin_dic[str(i)] = values
 
-    pdb.set_trace()
-    df = pd.DataFrame.from_dict(array_fin_dic).to_html()
-    return template(df,name=name,pd=df)
+    df = pd.DataFrame.from_dict(array_fin_dic).head().to_html()
+    return template('confirm',name=df)
 
 @get('/index')
 def datacheck():
