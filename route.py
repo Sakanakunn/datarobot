@@ -11,9 +11,14 @@ import pdb
 @route('/plot',method = 'POST')
 def greet(name='Stranger'):
     # Get the data
-    reader = str(request.POST['upload'].file.read(),'utf-8')
+    csv_str = str(request.POST['upload'].file.read(),'utf-8')
+    array_str = csv_str.split('\r\n')
+    array_fin = []
+    for i in array_str:
+        array_fin.append(i.split(','))
+
     pdb.set_trace()
-    df = pd.DataFrame(x).to_html()
+    df = pd.DataFrame(array_str).to_html()
     return template(df,name=name,pd=df)
 
 @get('/index')
