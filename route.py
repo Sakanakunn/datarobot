@@ -11,7 +11,7 @@ import pdb
 @route('/plot',method = 'POST')
 def greet(name='Stranger'):
     # Get the data
-    reader = codecs.iterdecode(request.POST['upload'].file.read(), 'utf-8')
+    reader = request.POST['upload'].file.read()
     pdb.set_trace()
     df = pd.DataFrame(x).to_html()
     return template(df,name=name,pd=df)
