@@ -14,9 +14,9 @@ def greet(name='Stranger'):
     csv_str = str(request.POST['upload'].file.read(),'utf-8')
     array_str = csv_str.split('\r\n')
     array_pre = []
+    ## todo iris以外のデータでout of Rangeになるバグを修正する
     for i in array_str:
         array_pre.append(i.split(','))
-
     array_fin_dic = {}
     for idx1,i in enumerate(array_pre[0]):
         values = []
@@ -31,7 +31,6 @@ def greet(name='Stranger'):
 @get('/index')
 def datacheck():
     return template('index')
-
 
 @get('/complete')
 def data_result():

@@ -8,6 +8,18 @@
 <div id = "data" style = "display:none">
     {{name}}
 </div>
+<form>
+正解ラベルの列数
+<br>
+<input type="number" name="example1" min = "0" value = "1">
+<br>
+除外するID列<br>
+<input type="number" name="example1" min = "0" value = "1">
+<br>
+<br>
+<input type="submit" value="Submit" class = "btn btn-primary">
+</form>
+<br>
 </body>
 <script>
     var str = document.getElementById("data").textContent.replace('<table border="1" class="dataframe">','<table border="1" class="table table-striped">')
