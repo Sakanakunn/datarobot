@@ -1,3 +1,4 @@
+## TODO Object型以外にもカテゴリ指定するものがあれば追加で指定できる仕様にする
 import pandas as pd
 from sklearn.preprocessing import Imputer
 from sklearn.feature_selection import RFE
@@ -172,4 +173,5 @@ def Scoring_TrainedModel(trained_pipeline_dict,X_test,y_test):
     result_dict['2_auc_score'] = roc_scores
     result_dict['3_F1_score'] = f1_scores
     result_dict = pd.DataFrame.from_dict(result_dict)
+
     return result_dict

@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
 import xgboost as xgb
 
-def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names):
+def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names,score_data_path):
     ## 訓練データの前処理
     ### データの読み込み
     train_set = pre.train_read(train_data_path,scoring_columns,exclude_columns_names)
@@ -88,24 +88,14 @@ def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names):
 
     trained_pipeline_dict = pre.train_pipeline_with_grid(pipelines_dict,X_train,y_train)
 
-    result_dict = pre.Scoring_TrainedModel(trained_pipeline_dict,X_test,y_test)
+    result_df = pre.Scoring_TrainedModel(trained_pipeline_dict,X_test,y_test)
 
-    print(result_dict)
-
-if __name__ == '__main__':
-    ## TODO:関数をフォームの入力データで呼び出せる構成にする
-    ## テストデータのパス
-    ## TODO:テストデータ(DataFrameをpostから受け取る)
-    train_data_path = './data/titanic/train.csv'
-    ##Class Mapping
-    mapping_fl = False
-    ## TODO:(スコアリング列のカラム数を受け取る)
-    ## スコアリング列のカラム番号
-    scoring_columns = 1
-    ## TODO:(除外するカラム名を受け取る)
-    ## 除外するカラム名
-    exclude_columns_names = ['Name','Ticket','Cabin']
-    ## スコアリングデータのパス
-    score_data_path =  './data/titanic/test.csv'
-
-    main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names)
+    result_array = []
+    ## 前処理後の訓練データ
+    result_array.append(x_train_ohe_imp.head())
+    ## RFE実施後の訓練データ
+    result_array.append(x_train_fin.head())
+    ## TODO アルゴリズムに評価された上位10個の値
+    ## 計算結果
+    result_array.append(result_df)
+    return result_array
