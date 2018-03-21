@@ -9,21 +9,35 @@ import codecs
 import pdb
 import main
 
-@route('/plot',method = 'POST')
+
+@route('/plot', method='POST')
 def greet(name='Stranger'):
     # Get the data
-    csv_str = str(request.POST['upload'].file.read(),'utf-8')
+    csv_str = str(request.POST['upload'].file.read(), 'utf-8')
     array_str = csv_str.split('\r\n')
     array_pre = []
     for i in array_str:
         array_pre.append(i.split(','))
     array_fin_dic = {}
-    for idx1,i in enumerate(array_pre[0]):
-        values = []
-        for idx2,t in enumerate(array_pre):
-            if idx2 != 0:
-                values.append(t[idx1])
-        array_fin_dic[str(i)] = values
+    # TODO keyのdictを生成する
+    for i in array_pre[0]:
+        array_fin_dic[str(i)] = ''
+
+    # TODO valueの配列を生成する
+    array_pre.pop(0)
+    array_pre.pop(-1)
+    array_values = []
+    array_fin_values = []
+
+    for idx, i in enumerate(array_fin_dic):
+        for j in array_pre:
+            array_values.append(j[idx])
+        array_fin_values.append(array_values)
+        array_values = []
+
+    # TODO DataFrame変換用の辞書を生成する
+    for idx, key in enumerate(array_fin_dic):
+        array_fin_dic[key] = array_fin_values[idx]
 
     df = pd.DataFrame.from_dict(array_fin_dic).head().to_html()
     return template('confirm',name=df)
