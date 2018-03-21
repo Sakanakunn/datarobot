@@ -15,40 +15,31 @@ from sklearn.model_selection import GridSearchCV
 import xgboost as xgb
 
 ## スコアリング用データのImport
-def train_read(CsvPath,train_num,Exclude_columns):
-    df = pd.read_csv(CsvPath, header=0)
+def train_read(CsvPath,score_column):
     train_keys = ['X_train','y_train','all_train_columns','objects_train_columns','objects_dummy_train_columns','dtype_dict']
-    if Exclude_columns != ['']:
-        X_train = df.iloc[:, 2:].drop(Exclude_columns, axis=1)
-    else:
-        X_train = df.iloc[:, :train_num]
+    X_train = CsvPath.ix[:,CsvPath.columns != score_column]
     train_values = [
     ## 特徴量カラムの読み込み
     X_train
     ## 正解ラベルカラムの読み込み
-    ,df.iloc[:,train_num]
+    ,CsvPath.ix[:,score_column]
     ## 全カラム名のArray
-    ,df.columns.values
+    ,CsvPath.columns.values
     ## Objects型に絞り込んだカラム名のArray
-    ,df.loc[:,extract_objects_columns(df)].columns
+    ,CsvPath.loc[:,extract_objects_columns(CsvPath)].columns
     ## 正解ラベルカラムの読み込み
     ,X_train.loc[:,extract_objects_columns(X_train)].columns
     ## データ型を生成
-    ,build_dtype_dict(df.loc[:, extract_objects_columns(df)].columns)
+    ,build_dtype_dict(CsvPath.loc[:, extract_objects_columns(CsvPath)].columns)
     ]
     ## return を dict型で生成
     train_set = dict(zip(train_keys,train_values))
     return train_set
 
 ## スコアリング用データのImport
-def score_read(CsvPath,Exclude_columns,dtype_dict):
-    df = pd.read_csv(CsvPath,dtype = dtype_dict,header=0)
+def score_read(CsvPath,dtype_dict):
     score_keys = ['X_score']
-
-    if Exclude_columns != ['']:
-        X_score = df.drop(Exclude_columns, axis=1)
-    else:
-        X_score = df
+    X_score =CsvPath
     score_values = [
     ## 特徴量カラムの読み込み
     X_score

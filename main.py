@@ -7,13 +7,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
 import xgboost as xgb
+import pdb
 
-def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names,score_data_path):
+def main(train_data_path,scoring_columns,mapping_fl,score_data_path):
     ## 訓練データの前処理
     ### データの読み込み
-    train_set = pre.train_read(train_data_path,scoring_columns,exclude_columns_names)
-
-    print(train_set.keys())
+    train_set = pre.train_read(train_data_path,scoring_columns)
+    pdb.set_trace()
 
     ### one-hot Encoding
     x_train_ohe = pre.onehot_encode(
@@ -38,7 +38,7 @@ def main(train_data_path,scoring_columns,mapping_fl,exclude_columns_names,score_
 
     ## スコアリング用データの前処理
     ### データの読み込み
-    score_set = pre.score_read(score_data_path,exclude_columns_names,train_set['dtype_dict'])
+    score_set = pre.score_read(score_data_path,train_set['dtype_dict'])
 
 
     ### one-hot Encoding

@@ -6,16 +6,21 @@
 </head>
 <body>
 
-<div id = "data" style = "display:none">
-    {{name}}
+<div id = "train" style = "display:none">
+    {{train}}
 </div>
+
+<div id = "score" style = "display:none">
+    {{score}}
+</div>
+
 <form action = '/complete' method = "post">
 正解ラベルの列数
 <br>
-<input type="number" name="class_column" min = "0" value = "1">
+<input type="text" name="class_column">
 <br>
 除外するID列<br>
-<input type="text" name="ex_column" min = "0" value = "1">
+<input type="text" name="ex_column">
 <br>
 <br>
 <input type="submit" value="Submit" class = "btn btn-primary">
@@ -23,7 +28,13 @@
 <br>
 </body>
 <script>
-    var str = document.getElementById("data").textContent.replace('<table border="1" class="dataframe">','<table border="1" class="table table-striped">')
+    var str = document.getElementById("train").textContent.replace('<table border="1" class="dataframe">','<table border="1" class="table table-striped">')
+    var div = document.createElement('div');
+    div.innerHTML = str;
+    document.body.appendChild(div);
+</script>
+<script>
+    var str = document.getElementById("score").textContent.replace('<table border="1" class="dataframe">','<table border="1" class="table table-striped">')
     var div = document.createElement('div');
     div.innerHTML = str;
     document.body.appendChild(div);
